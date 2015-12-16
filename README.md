@@ -1,7 +1,7 @@
 # GTiff-compare
 Compare Two Rectified GeoTIFF Images
 
-A quick-and-dirty comparison of bands between two rectified GeoTiffs can be a really handy tool - I was inspired by the work Dr Sang-Ho Yun did NASA's Jet Propulsion Lab to help direct rescuers to the areas that sustained the most damage after the 2015 Nepal earthquakes. (Link to further info below)
+A quick-and-dirty comparison of bands between two rectified GeoTiffs can be a really handy tool - I was inspired by the work Dr Sang-Ho Yun did NASA's Jet Propulsion Lab to help direct rescuers to the areas that sustained the most damage after the 2015 Nepal earthquakes. His team had a key insight - where the ground moved the most would likely be where the worst damage was, right? Satellites collecting Digital Elevation Model data (DEM) take very accurate measurements of the altitude of their pixels. Comparing a DEM image taken before an earthquake with one after will show how badly areas were affected. (Link to further info below.)
 
 This script will work with two images that are rectified - that is, each pixel on Image A corresponds exactly on the earth's surface with the pixel drawn from the same index on Image B.
 
@@ -14,6 +14,8 @@ Our workflow is as follows:
 Et voila! Return an array that holds values representing the differences between two GeoTIFFs. 
 
 I am new here and always open to suggestions as to how to improve my code. Thanks!
+
+(Note - this is a work in progress - I wanted to check my code before I added the complication of the second image. Updates coming soon.)
 
 
 
