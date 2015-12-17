@@ -1,36 +1,48 @@
 import gdal
 from gdalconst import *
-gdal.UseExceptions()
 
-tif = 'Your Tif Here'
+filename1 = "Your GeoTiff 1 Here"
+filename2 = "Your GeoTiff 2 Here"
 
-# Open GeoTIFF with gdal
-dataset = gdal.Open(tif,GA_ReadOnly)
+# Open GeoTIFF1 with gdal, gather information
+dataset1 = gdal.Open(filename1, GA_ReadOnly)
 
-# Set variables for easier calling later on
-cols = dataset.RasterXSize
-rows = dataset.RasterYSize
-bands = dataset.RasterCount
-driver = dataset.GetDriver().LongName
+cols1 = dataset1.RasterXSize
+rows1 = dataset1.RasterYSize
+bands1 = dataset1.RasterCount
+driver1 = dataset1.GetDriver().LongName
 
-# Pull raster band info - in DEM GTiff there is only 1 band
-band = dataset.GetRasterBand(1)
-data = band.ReadAsArray(0,0,cols,rows) # now "data" is our array to iterate
+# Open GeoTIFF2 with gdal, gather information
+dataset2 = gdal.Open(filename2, GA_ReadOnly)
 
-# Prep for iteration
-new_array = []                      # create empty, "receptacle" array
-row_count = rows - 1
-col_count = cols - 1
+cols2 = dataset2.RasterXSize
+rows2 = dataset2.RasterYSize
+bands2 = dataset2.RasterCount
+driver2 = dataset2.GetDriver().LongName
 
-# Iterate through the array
-while col_count >= 0:               # the key feature: our double while loop that -->
+# Pull raster band info from both images - in DEM GTiff there is only 1 band
+band1 = dataset1.GetRasterBand(1)
+data1 = band1.ReadAsArray(0,0,cols1,rows1)
 
-    while row_count >= 0:           # allows you to run through all the rows in a col
-        value = data[col_count, row_count]
-        new_array.append(value - 1) # (we will replace 1 with Tif2 value to find difference - when we get there)
-        row_count -= 1
-        
-    col_count -= 1                  # and then move on to the next col
-    row_count = rows - 1                # reset the row count - we need to go through all rows for each col
+band2 = dataset2.GetRasterBand(1)
+data2 = band2.ReadAsArray(0,0,cols2,rows2)
 
-print new_array
+
+# Prepare variables for the main function
+difference = []                     # create empty, "receptacle" array
+subdiff = []                        # create subarray to build each row of differences in 
+row_count = rows1 - 1               # set count as indices
+col_count = cols1 - 1
+
+while row_count >= 0:               # the key feature: our double while loop that /
+    while col_count >= 0:           # allows you to run through all the values (really cols) in a row
+        value1 = data1[col_count, row_count]
+        value2 = data2[col_count, row_count]
+        subdiff.append(value1 - value2) # our key function - the difference between pixel elev values
+        col_count -= 1              # move on to the next index in both data1 and data2
+    difference.append(subdiff)      # once row is built, append subarray to main array
+    subdiff = []                    # reset subarray to take next row's differences
+    row_count -= 1                  # and then move on to the next row
+    col_count = cols1 - 1                # reset the col count - we need to go through all rows for each col
+
+print difference
