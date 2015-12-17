@@ -18,6 +18,6 @@ I am new here and always open to suggestions as to how to improve my code. Thank
 
 
 A small sample GeoTIFF image can be found here: http://download.osgeo.org/geotiff/samples/GeogToWGS84GeoKey/
-(I haven't yet found a source for time-stamped DEM GeoTIFFs...any ideas?)
+(I have not yet found a source for time-stamped DEM GeoTIFFs...any ideas?)
 
 The Economist on Dr Yun's work at the JPL, 14 Nov 2015: http://www.economist.com/news/science-and-technology/21678207-better-way-use-satellite-images-save-lives-after-tremors-compare-and
