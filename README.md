@@ -8,10 +8,14 @@ This script will work with two images that are rectified - that is, each pixel o
 Our workflow is as follows:
 
 1 Using the GDAL library, we open our GeoTIFFs and gather information to be used in our main function. 
-2 We then pull the raster band info as an array, enabling simple comparison of the pixels by index. 
-3 Finally, we perform our band math and append the result to our receptacle array.
 
-Et voila! Return an array that holds values representing the differences between two GeoTIFFs. 
+2 We then pull the raster band info as a 2D array, enabling simple comparison of the pixels by index.
+
+3 Next, we perform our band math and append the result to a subarray. (The array is required because we need to output a 2D array - that is, an array of arrays.)
+
+4 We append our subarray (representing a row of differences) to the main difference array, then move on to the next row.
+
+Et voila! We finally return an array that holds subarrays representing the rows of differences between two GeoTIFFs. 
 
 I am new here and always open to suggestions as to how to improve my code. Thanks!
 
